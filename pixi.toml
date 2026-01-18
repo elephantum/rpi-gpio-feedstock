@@ -7,6 +7,7 @@ channels = ["conda-forge"]
 platforms = ["linux-aarch64"]
 
 [dependencies]
+python = "3.11.*"
 rattler-build = ">=0.10.0"
 
 [tasks]
