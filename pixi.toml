@@ -1,0 +1,13 @@
+[workspace]
+name = "rpi-gpio-feedstock"
+version = "0.7.1"
+description = "Feedstock for rpi-gpio package"
+authors = ["elephantum"]
+channels = ["conda-forge"]
+platforms = ["linux-aarch64"]
+
+[dependencies]
+rattler-build = ">=0.10.0"
+
+[tasks]
+build = "rattler-build build --recipe recipe/recipe.yaml"

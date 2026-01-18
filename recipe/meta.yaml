@@ -1,0 +1,51 @@
+{% set name = "rpi-gpio" %}
+{% set version = "0.7.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/R/RPi.GPIO/RPi.GPIO-{{ version}}.tar.gz
+  sha256: cd61c4b03c37b62bba4a5acfea9862749c33c618e0295e7e90aa4713fb373b70
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv
+  # This package is specific to Linux and typically Raspberry Pi
+  skip: True  # [not linux]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+  host:
+    - python
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python
+
+test:
+  imports:
+    - RPi.GPIO
+  # Verification on non-RPi hardware might fail if it tries to access /dev/gpiomem or similar
+  # So we might want to skip tests or be careful.
+  # RPi.GPIO often mocks correctly or fails gracefully on import, but runtime usage fails.
+  # Let's try simple import.
+
+about:
+  home: http://sourceforge.net/projects/raspberry-gpio-python/
+  license: MIT
+  license_family: MIT
+  license_file: LICENCE.txt
+  summary: A module to control Raspberry Pi GPIO channels
+  description: |
+    A module to control Raspberry Pi GPIO channels.
+    This package provides a class to control the GPIO on a Raspberry Pi.
+  doc_url: http://sourceforge.net/p/raspberry-gpio-python/wiki/Home/
+  dev_url: http://sourceforge.net/p/raspberry-gpio-python/code/ci/default/tree/
+
+extra:
+  recipe-maintainers:
+    - elephantum

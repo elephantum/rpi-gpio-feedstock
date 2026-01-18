@@ -1,0 +1,43 @@
+schema_version: 1
+
+context:
+  name: rpi-gpio
+  version: 0.7.1
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.io/packages/source/R/RPi.GPIO/RPi.GPIO-${{ version }}.tar.gz
+  sha256: cd61c4b03c37b62bba4a5acfea9862749c33c618e0295e7e90aa4713fb373b70
+
+build:
+  number: 0
+  script:
+    - python -m pip install . -vv
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+  host:
+    - python
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - RPi.GPIO
+
+about:
+  homepage: http://sourceforge.net/projects/raspberry-gpio-python/
+  license: MIT
+  license_file: LICENCE.txt
+  summary: A module to control Raspberry Pi GPIO channels
+  description: |
+    A module to control Raspberry Pi GPIO channels.
+    This package provides a class to control the GPIO on a Raspberry Pi.
